@@ -28,12 +28,12 @@ public:
 };
 
 // --- Example Usage ---
-int main() {
-    ConsoleLogger logger;
+// int main() {
+//     ConsoleLogger logger;
 
-    logger.Info("Application started.");
-    logger.Warn("Low disk space.");
-    logger.Error("Failed to open file.");
+//     logger.Info("Application started.");
+//     logger.Warn("Low disk space.");
+//     logger.Error("Failed to open file.");
 
-    return 0;
-}
+//     return 0;
+// }
