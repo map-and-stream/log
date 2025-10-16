@@ -1,4 +1,4 @@
-#include "../src/console_logger.h"
+#include "console_logger.h"
 
 int main() {
     ConsoleLogger l{};
