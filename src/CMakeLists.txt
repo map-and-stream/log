@@ -1,3 +1,5 @@
+set(LIBRARY_NAME log)
+
 set(LOG_SOURCES
 console_logger.cpp
 )
@@ -7,12 +9,12 @@ logger.h
 console_logger.h
 )
 
-add_library(log STATIC ${LOG_SOURCES})
+add_library(${LIBRARY_NAME} STATIC ${LOG_SOURCES})
 
 # Keep headers associated with this target for IDEs, but do not propagate
-target_sources(log PRIVATE ${LOG_HEADERS})
+target_sources(${LIBRARY_NAME} PRIVATE ${LOG_HEADERS})
 
-target_include_directories(log PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Convenient namespaced alias for downstream targets
-add_library(isiran::log ALIAS log)
+add_library(isiran::log ALIAS ${LIBRARY_NAME})
