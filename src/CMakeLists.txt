@@ -17,4 +17,4 @@ target_sources(${LIBRARY_NAME} PRIVATE ${LOG_HEADERS})
 target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Convenient namespaced alias for downstream targets
-add_library(isiran::log ALIAS ${LIBRARY_NAME})
+add_library(${LIB_ALIAS} ALIAS ${LIBRARY_NAME})

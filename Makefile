@@ -16,4 +16,5 @@ build:
 	cmake -B $(BUILD_DIR)
 	cmake --build $(BUILD_DIR)
 	cp $(BUILD_DIR)/example/example $(OUTPUT_DIR)
+	cp $(BUILD_DIR)/lib/liblog.a $(OUTPUT_DIR)
 
