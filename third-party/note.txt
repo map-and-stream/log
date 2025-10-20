@@ -1,2 +1,0 @@
-third-party dir is a placeholder for external packages related to each submodule.
-is intended to maintain a uniform project structure for all submodules
