@@ -6,3 +6,4 @@ set(LIB_ALIAS isiran::log)
 
 # Build the example
 add_subdirectory(example)
+add_subdirectory(test)

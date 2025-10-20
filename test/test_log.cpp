@@ -1,14 +1,19 @@
-// #include "log.h"
-// #include <gtest/gtest.h>
-// #include <sstream>
-// #include <iostream>
+#include <gtest/gtest.h>
+#include "factory.h"
+#include <sstream>
+#include <iostream>
 
-// TEST(LogTest, InfoOutput) {
-//     testing::internal::CaptureStdout();
-//     log::info("Hello");
-//     std::string output = testing::internal::GetCapturedStdout();
-//     EXPECT_NE(output.find("[INFO] Hello"), std::string::npos);
-// }
+TEST(SampleTest, BasicAssertion) {
+    EXPECT_EQ(1 + 1, 2);
+}
+
+TEST(LogTest, InfoOutput) {
+    ILogger* l = LoggerFactory::createLogger(LoggerType::Console);
+    testing::internal::CaptureStdout();
+    l->info("Hello");
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_NE(output.find("[INFO] Hello"), std::string::npos);
+}
 
 // TEST(LogTest, WarnOutput) {
 //     testing::internal::CaptureStdout();
