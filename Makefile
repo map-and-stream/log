@@ -1,5 +1,5 @@
 BUILD_DIR = build
-OUTPUT_DIR = output
+OUTPUT_DIR = $(BUILD_DIR)/output
 
 
 .PHONY: clean build
