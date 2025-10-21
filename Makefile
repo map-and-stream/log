@@ -10,7 +10,7 @@ build:
 	cmake -B $(BUILD_DIR)
 	cmake --build $(BUILD_DIR) -j$(shell nproc)
 	cp $(BUILD_DIR)/example/example $(OUTPUT_DIR)
-	cp $(BUILD_DIR)/lib/liblog.a $(OUTPUT_DIR)
+	cp $(BUILD_DIR)/src/liblog.a $(OUTPUT_DIR)
 
 
 clean:

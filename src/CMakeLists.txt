@@ -15,7 +15,8 @@ add_subdirectory(third-party/spdlog)
 
 add_library(${LIBRARY_NAME} STATIC ${LOG_SOURCES})
 
-target_link_libraries(${LIBRARY_NAME} PRIVATE spdlog::spdlog)
+#define public in order we cane use library in test folder
+target_link_libraries(${LIBRARY_NAME} PUBLIC spdlog::spdlog)
 
 # Keep headers associated with this target for IDEs, but do not propagate
 target_sources(${LIBRARY_NAME} PRIVATE ${LOG_HEADERS})
