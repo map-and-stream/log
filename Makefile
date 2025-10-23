@@ -20,3 +20,5 @@ clean:
 
 rebuild: clean build
 
+install/local:
+	cd $(BUILD_DIR); make install

@@ -14,4 +14,6 @@ public:
     void error(const std::string& message);
 
     void setLogLevel(LogLevel level);
+
+    bool init(){return true;}
 };

@@ -14,7 +14,9 @@ public:
             return new ConsoleLogger(cfg);
         }
         else if (type == LoggerType::Spdlog) {
-            return new SpdLogger(cfg);
+            SpdLogger *spd = new SpdLogger(cfg);//TODO: using smart pointer
+            spd->init();
+            return spd;
         }
         else {
             throw std::invalid_argument("Invalid logger type");
