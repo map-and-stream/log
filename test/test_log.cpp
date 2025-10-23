@@ -8,7 +8,12 @@ TEST(SampleTest, BasicAssertion) {
 }
 
 TEST(LogTest, InfoOutput) {
-    ILogger* l = LoggerFactory::createLogger(LoggerType::Console);
+    LogConfig cfg;
+    cfg.filePath = ".";
+    cfg.maxLogRotate = 100;
+    cfg.logLevel = LogLevel::error;
+
+    ILogger* l = LoggerFactory::createLogger(LoggerType::Console, cfg);
     testing::internal::CaptureStdout();
     l->info("Hello");
     std::string output = testing::internal::GetCapturedStdout();

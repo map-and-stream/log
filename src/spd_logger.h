@@ -6,10 +6,12 @@
 
 class SpdLogger : public ILogger {
 public:
-    SpdLogger();
+    SpdLogger(LogConfig cfg);
     ~SpdLogger();
     public:
     void info(const std::string& message);
     void warn(const std::string& message);
     void error(const std::string& message);
+
+    void setLogLevel(LogLevel level);
 };
