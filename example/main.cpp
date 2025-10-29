@@ -1,5 +1,6 @@
 #include "factory.h"
 #include "logger.h"
+#include <iostream>
 
 int main() {
     LogConfig cfg;
@@ -7,26 +8,35 @@ int main() {
     cfg.maxLogRotate = 100;
     cfg.logLevel = LogLevel::info;
 
+    // Console logger
     ILogger* l = LoggerFactory::createLogger(LoggerType::Console, cfg);
-    l->info("This is an info message.");
-    l->warn("This is a warning message.");
-    l->error("This is an error message.");
+    l->info("Console: info");
+    l->warn("Console: warn");
+    l->error("Console: error");
 
+    // Spdlog logger
     cfg.logLevel = LogLevel::error;
     ILogger* s = LoggerFactory::createLogger(LoggerType::Spdlog, cfg);
-    s->info("This is an info message.");
-    s->warn("This is a warning message.");
-    s->error("This is an error message.");
+    s->info("Spdlog: info");
+    s->warn("Spdlog: warn");
+    s->error("Spdlog: error");
 
-    // INSERT_YOUR_CODE
-    // Attempt to create logger with an invalid type and handle possible failure
-    ILogger* invalidLogger = LoggerFactory::createLogger(static_cast<LoggerType>(-1), cfg);
-    if (!invalidLogger) {
-        std::cout << "Failed to create logger: invalid logger type." << std::endl;
-    } else {
+    // RotatingSpd logger
+    cfg.filePath = "./logs";
+    cfg.maxLogRotate = 3;
+    cfg.logLevel = LogLevel::info;
+    ILogger* r = LoggerFactory::createLogger(LoggerType::RotatingSpd, cfg);
+    r->info("RotatingSpd: info");
+    r->warn("RotatingSpd: warn");
+    r->error("RotatingSpd: error");
+
+    // Invalid logger type
+    try {
+        ILogger* invalidLogger = LoggerFactory::createLogger(static_cast<LoggerType>(-1), cfg);
         invalidLogger->info("This should not happen.");
+    } catch (const std::exception& ex) {
+        std::cout << "Failed to create logger: " << ex.what() << std::endl;
     }
-
 
     return 0;
 }

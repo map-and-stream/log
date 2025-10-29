@@ -3,12 +3,14 @@ set(LIBRARY_NAME log)
 set(LOG_SOURCES
 console_logger.cpp
 spd_logger.cpp
+rotating_spd_logger.cpp
 )
 
 set(LOG_HEADERS
 logger.h
 console_logger.h
 spd_logger.h
+rotating_spd_logger.h
 )
 
 add_subdirectory(third-party/spdlog)
