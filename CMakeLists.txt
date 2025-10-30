@@ -18,3 +18,4 @@ if(LOG_BUILD_EXAMPLE)
 else()
     message("-- LOG_BUILD_EXAMPLE is not set")
 endif()
+
