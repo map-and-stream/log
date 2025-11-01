@@ -1,7 +1,9 @@
 #include <gtest/gtest.h>
 #include "factory.h"
+#include "spd_logger.h"
 #include <sstream>
 #include <iostream>
+#include <memory>
 
 TEST(SampleTest, BasicAssertion) {
     EXPECT_EQ(1 + 1, 2);
@@ -10,12 +12,13 @@ TEST(SampleTest, BasicAssertion) {
 TEST(LogTest, InfoOutput) {
     LogConfig cfg;
     cfg.filePath = ".";
-    cfg.maxLogRotate = 100;
-    cfg.logLevel = LogLevel::error;
+    cfg.logLevel = LogLevel::info;
 
-    ILogger* l = LoggerFactory::createLogger(LoggerType::Console, cfg);
+    auto logger = LoggerFactory::createLogger(LoggerType::Console, cfg);
+
     testing::internal::CaptureStdout();
-    l->info("Hello");
+    logger->info("Hello");
     std::string output = testing::internal::GetCapturedStdout();
+
     EXPECT_NE(output.find("[INFO] Hello"), std::string::npos);
 }

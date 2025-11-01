@@ -1,38 +1,50 @@
 #include "factory.h"
 #include "logger.h"
+#include "spd_logger.h"
 #include <iostream>
+#include <memory>
 
 int main() {
     LogConfig cfg;
     cfg.filePath = ".";
-    cfg.maxLogRotate = 100;
     cfg.logLevel = LogLevel::info;
 
-    // Console logger
-    ILogger* l = LoggerFactory::createLogger(LoggerType::Console, cfg);
-    l->info("Console: info");
-    l->warn("Console: warn");
-    l->error("Console: error");
+    auto consoleLogger = LoggerFactory::createLogger(LoggerType::Console, cfg);
+    consoleLogger->info("Console: info");
+    consoleLogger->warn("Console: warn");
+    consoleLogger->error("Console: error");
 
-    // Spdlog logger
     cfg.logLevel = LogLevel::error;
-    ILogger* s = LoggerFactory::createLogger(LoggerType::Spdlog, cfg);
-    s->info("Spdlog: info");
-    s->warn("Spdlog: warn");
-    s->error("Spdlog: error");
+    SpdLogConfig basicCfg;
+    basicCfg.sinkType = SpdSinkType::Basic;
+    basicCfg.maxRotateDays = 0;
+    basicCfg.maxRotateHours = 0;
+    auto basicLogger = LoggerFactory::createLogger(LoggerType::Spdlog, cfg, basicCfg);
+    basicLogger->info("Spdlog Basic: info");
+    basicLogger->warn("Spdlog Basic: warn");
+    basicLogger->error("Spdlog Basic: error");
 
-    // RotatingSpd logger
-    cfg.filePath = "./logs";
-    cfg.maxLogRotate = 3;
     cfg.logLevel = LogLevel::info;
-    ILogger* r = LoggerFactory::createLogger(LoggerType::RotatingSpd, cfg);
-    r->info("RotatingSpd: info");
-    r->warn("RotatingSpd: warn");
-    r->error("RotatingSpd: error");
+    SpdLogConfig dailyCfg;
+    dailyCfg.sinkType = SpdSinkType::Daily;
+    dailyCfg.maxRotateDays = 3;
+    dailyCfg.maxRotateHours = 0;
+    auto dailyLogger = LoggerFactory::createLogger(LoggerType::Spdlog, cfg, dailyCfg);
+    dailyLogger->info("Rotating Daily: info");
+    dailyLogger->warn("Rotating Daily: warn");
+    dailyLogger->error("Rotating Daily: error");
 
-    // Invalid logger type
+    SpdLogConfig hourlyCfg;
+    hourlyCfg.sinkType = SpdSinkType::Hourly;
+    hourlyCfg.maxRotateDays = 0;
+    hourlyCfg.maxRotateHours = 10;
+    auto hourlyLogger = LoggerFactory::createLogger(LoggerType::Spdlog, cfg, hourlyCfg);
+    hourlyLogger->info("Rotating Hourly: info");
+    hourlyLogger->warn("Rotating Hourly: warn");
+    hourlyLogger->error("Rotating Hourly: error");
+
     try {
-        ILogger* invalidLogger = LoggerFactory::createLogger(static_cast<LoggerType>(-1), cfg);
+        auto invalidLogger = LoggerFactory::createLogger(static_cast<LoggerType>(-1), cfg);
         invalidLogger->info("This should not happen.");
     } catch (const std::exception& ex) {
         std::cout << "Failed to create logger: " << ex.what() << std::endl;
